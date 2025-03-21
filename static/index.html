@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="es" class="light-mode">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Series de McLaurin y Taylor</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/11.8.0/math.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+</head>
+<body>
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <i class="fas fa-square-root-alt"></i>
+            <h2>Series</h2>
+            <button id="sidebar-toggle" class="sidebar-toggle">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+        <div class="sidebar-menu">
+            <div class="menu-item active" data-tab="mclaurin">
+                <i class="fas fa-infinity"></i>
+                <span>McLaurin</span>
+            </div>
+            <div class="menu-item" data-tab="taylor">
+                <i class="fas fa-superscript"></i>
+                <span>Taylor</span>
+            </div>
+            <div class="menu-item" data-tab="info">
+                <i class="fas fa-info-circle"></i>
+                <span>Información</span>
+            </div>
+            <div class="menu-item" data-tab="help">
+                <i class="fas fa-question-circle"></i>
+                <span>Ayuda</span>
+            </div>
+        </div>
+        <div class="sidebar-footer">
+            <p>Desarrollado por: SOLO DEIBYD Y TRIANA, Johan no hizo nada</p>
+        </div>
+    </div>
+
+    <main class="main-content">
+        <header class="top-header">
+            <h1>Series de Taylor y McLaurin, Desarrollado por: Juan camilo triana, Johan beltran y Deibyd castillo</h1>
+            <div class="theme-toggle" id="theme-toggle">
+                <i class="fas fa-moon"></i>
+            </div>
+        </header>
+
+        <div class="content-area">
+            <div class="tab-content active" id="mclaurin-content">
+                <div class="card">
+                    <div class="card-header">
+                        <h3><i class="fas fa-function"></i> Series de McLaurin</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="input-group">
+                            <label for="mclaurin-function">Seleccione la función</label>
+                            <select id="mclaurin-function" class="form-control">
+                                <option value="sin">sen(x)</option>
+                                <option value="cos">cos(x)</option>
+                                <option value="exp">exp(x)</option>
+                                <option value="ln">ln(1+x)</option>
+                                <option value="fraction">1/(1-x)</option>
+                            </select>
+                        </div>
+                        
+                        <div class="input-grid">
+                            <div class="input-group">
+                                <label for="mclaurin-x">Valor de x a evaluar</label>
+                                <input type="number" id="mclaurin-x" value="0.5" step="0.1" class="form-control">
+                            </div>
+                            <div class="input-group">
+                                <label for="mclaurin-terms">Número de términos</label>
+                                <input type="number" id="mclaurin-terms" value="10" min="1" max="50" class="form-control">
+                            </div>
+                        </div>
+                        
+                        <button id="calculate-mclaurin" class="btn-primary">
+                            <i class="fas fa-calculator"></i> Calcular
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-content" id="taylor-content">
+                <div class="card">
+                    <div class="card-header">
+                        <h3><i class="fas fa-sigma"></i> Series de Taylor</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="input-group">
+                            <label for="taylor-function">Seleccione la función</label>
+                            <select id="taylor-function" class="form-control">
+                                <option value="sin">sen(x)</option>
+                                <option value="cos">cos(x)</option>
+                                <option value="exp">exp(x)</option>
+                                <option value="ln">ln(1+x)</option>
+                                <option value="fraction">1/(1-x)</option>
+                            </select>
+                        </div>
+                        
+                        <div class="input-grid">
+                            <div class="input-group">
+                                <label for="taylor-a">Punto de convergencia (a)</label>
+                                <input type="number" id="taylor-a" value="0.2" step="0.1" class="form-control">
+                            </div>
+                            <div class="input-group">
+                                <label for="taylor-x">Valor de x a evaluar</label>
+                                <input type="number" id="taylor-x" value="0.5" step="0.1" class="form-control">
+                            </div>
+                            <div class="input-group">
+                                <label for="taylor-terms">Número de términos</label>
+                                <input type="number" id="taylor-terms" value="10" min="1" max="50" class="form-control">
+                            </div>
+                        </div>
+                        
+                        <button id="calculate-taylor" class="btn-primary">
+                            <i class="fas fa-calculator"></i> Calcular
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-content" id="info-content">
+                <div class="card">
+                    <div class="card-header">
+                        <h3><i class="fas fa-info-circle"></i> Información</h3>
+                    </div>
+                    <div class="card-body">
+                        <h4>Acerca de las Series de McLaurin y Taylor</h4>
+                        <p>Las series de Taylor son representaciones de funciones como sumas infinitas de términos calculados a partir de los valores de las derivadas de la función en un punto. Las series de McLaurin son un caso especial de las series de Taylor centradas en el punto x = 0.</p>
+                        
+                        <h4>Serie de Taylor</h4>
+                        <p>La serie de Taylor de una función f(x) alrededor de un punto x = a está dada por:</p>
+                        <div class="formula-display">
+                            f(x) = f(a) + f'(a)(x-a) + f''(a)(x-a)²/2! + f'''(a)(x-a)³/3! + ...
+                        </div>
+                        
+                        <h4>Serie de McLaurin</h4>
+                        <p>La serie de McLaurin es simplemente la serie de Taylor centrada en a = 0:</p>
+                        <div class="formula-display">
+                            f(x) = f(0) + f'(0)x + f''(0)x²/2! + f'''(0)x³/3! + ...
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-content" id="help-content">
+                <div class="card">
+                    <div class="card-header">
+                        <h3><i class="fas fa-question-circle"></i> Ayuda</h3>
+                    </div>
+                    <div class="card-body">
+                        <h4>Cómo usar esta aplicación</h4>
+                        
+                        <div class="help-section">
+                            <h5>Para series de McLaurin:</h5>
+                            <ol>
+                                <li>Seleccione una función de la lista desplegable.</li>
+                                <li>Ingrese el valor de x que desea evaluar.</li>
+                                <li>Especifique el número de términos para la aproximación.</li>
+                                <li>Haga clic en "Calcular" para ver los resultados.</li>
+                            </ol>
+                        </div>
+                        
+                        <div class="help-section">
+                            <h5>Para series de Taylor:</h5>
+                            <ol>
+                                <li>Seleccione una función de la lista desplegable.</li>
+                                <li>Ingrese el punto de convergencia (a).</li>
+                                <li>Ingrese el valor de x que desea evaluar.</li>
+                                <li>Especifique el número de términos para la aproximación.</li>
+                                <li>Haga clic en "Calcular" para ver los resultados.</li>
+                            </ol>
+                        </div>
+                        
+                        <div class="help-section">
+                            <h5>Interpretación de resultados:</h5>
+                            <ul>
+                                <li><strong>Valor exacto:</strong> El valor real de la función en el punto x.</li>
+                                <li><strong>Aproximación:</strong> El valor calculado usando la serie.</li>
+                                <li><strong>Error absoluto:</strong> La diferencia entre el valor exacto y la aproximación.</li>
+                                <li><strong>Error relativo:</strong> El error expresado como porcentaje del valor exacto.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="results-panel" style="display: none;">
+                <div class="card">
+                    <div class="card-header">
+                        <h3><i class="fas fa-chart-line"></i> Resultados</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="result-section">
+                            <h4>Fórmula de la serie</h4>
+                            <div class="formula-box" id="formula-display"></div>
+                        </div>
+                        
+                        <div class="result-grid">
+                            <div class="result-section">
+                                <h4>Comparación de valores</h4>
+                                <div class="comparison-grid">
+                                    <div class="comparison-item">
+                                        <div class="label">Valor exacto f(x)</div>
+                                        <div class="value" id="exact-value"></div>
+                                    </div>
+                                    <div class="comparison-item">
+                                        <div class="label">Aproximación por serie</div>
+                                        <div class="value" id="approx-value"></div>
+                                    </div>
+                                </div>
+                                
+                                <div class="error-display">
+                                    <div class="error-item">
+                                        <span class="error-label">Error absoluto:</span>
+                                        <span class="error-value" id="abs-error"></span>
+                                    </div>
+                                    <div class="error-item">
+                                        <span class="error-label">Error relativo:</span>
+                                        <span class="error-value" id="rel-error"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="result-section">
+                                <h4>Términos de la serie</h4>
+                                <div class="table-container">
+                                    <table class="data-table" id="terms-table">
+                                        <thead>
+                                            <tr>
+                                                <th>n</th>
+                                                <th>Término</th>
+                                                <th>Suma parcial</th>
+                                                <th>Error relativo</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="terms-body"></tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="charts-grid">
+                            <div class="chart-container">
+                                <h4>Términos vs Error Relativo</h4>
+                                <canvas id="error-chart"></canvas>
+                            </div>
+                            <div class="chart-container">
+                                <h4>Términos vs Valor de la Sumatoria</h4>
+                                <canvas id="sum-chart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="functions.js"></script>
+    <script src="app.js"></script>
+    <script src="ui.js"></script>
+</body>
+</html>
